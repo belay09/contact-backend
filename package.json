@@ -1,0 +1,52 @@
+{
+  "name": "aa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "docker-compose up -d && yarn all:log",
+    "down": "sudo docker-compose down",
+    "all:log": "docker-compose logs -f --tail 100 && yarn console",
+    "express:log": "docker-compose logs -f --tail 100 finance_express_3_0",
+    "graphql:log": "docker-compose logs -f --tail 100 finance_graphql_engine_3_0",
+    "hasura:init": "hasura init hasura",
+    "has": "hasura scripts update-project-v3",
+    "hasura": "hasura --project hasura --envfile ../.env",
+    "hasura:prod": "hasura --project hasura --envfile ../.env.prod",
+    "console": "yarn hasura console --api-port 2002 --console-port 2003",
+    "console:prod": "yarn hasura:prod console --api-port 4074 --console-port 4075",
+    "migrate": "yarn hasura migrate apply && yarn hasura metadata apply",
+    "migrate:prod": "yarn hasura:prod migrate apply && yarn hasura metadata apply",
+    "migrate:status": "yarn hasura migrate status",
+    "migrate:status:prod": "yarn hasura:prod migrate status",
+    "seed": "yarn hasura seeds apply",
+    "rebuild": "sudo docker-compose build aa_express && yarn dev"
+  },
+  "devDependencies": {
+    "hasura-cli": "^1.3.3"
+  },
+  "dependencies": {
+    "auth0": "^3.4.0",
+    "axios": "^1.4.0",
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-jwt-authz": "^2.4.1",
+    "graphiql": "1.9.9",
+    "graphql": "^16.7.1",
+    "graphql-request": "^6.1.0",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
+    "node-fecth": "^0.0.1-security",
+    "node-fetch": "^3.3.1",
+    "pg": "^8.11.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
